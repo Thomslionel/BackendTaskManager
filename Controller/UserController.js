@@ -1,4 +1,4 @@
-const { Json } = require("sequelize/lib/utils");
+
 const { User } = require("../Model/association")
 const bcrypt = require("bcrypt");
 const { where } = require("sequelize");
