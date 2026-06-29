@@ -30,8 +30,11 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS, // Assurez-vous qu'il s'agit d'un "Mot de passe d'application" Gmail
   },
-  // Optionnel : Forcer Node à préférer l'IPv4 si l'hébergeur a des soucis de routage IPv6
-  connectionTimeout: 10000, // 10 secondes max pour se connecter
+  connectionTimeout: 30000,      // 30s
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
+  // Optionnel : forcer l'IPv4 (parfois utile sur Render)
+  family: 4, // 10 secondes max pour se connecter
 });
 
 function sendMail(to, subject, text) {
