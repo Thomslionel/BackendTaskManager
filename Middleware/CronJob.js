@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const { Task, User } = require("../Model/association");
 const { sendMail } = require("./mailService");
 
-cron.schedule("* 7 * * *", async () => {
+cron.schedule("30 9 * * *", async () => {
     console.log("🔔 Daily task reminder running...");
 
     try {
