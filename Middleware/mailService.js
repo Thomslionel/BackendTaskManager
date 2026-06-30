@@ -20,30 +20,25 @@
 // module.exports = { sendMail };
 
 
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,            // 1. Basculer sur le port 465
-  secure: true,         // 2. secure doit être 'true' pour le port 465
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  // Les options réseaux de sécurité
-  connectionTimeout: 20000,
-  greetingTimeout: 20000,
-  socketTimeout: 20000,
-  family: 4,            // 3. ESSENTIEL sur Render : force la résolution IPv4
-});
+const resend = new Resend(process.env.API_KEY);
 
-function sendMail(to, subject, text) {
-  return transporter.sendMail({
-    from: `"Task Manager" <${process.env.EMAIL_USER}>`,
-    to,
-    subject,
-    text,
-  });
+async function sendMail(to, subject, message) {
+  try {
+    const response = await resend.emails.send({
+      from: "onboarding@resend.dev", // email de test
+      to: [to],
+      subject: subject,
+      text: message,
+    });
+
+    console.log("Email envoyé:", response);
+    return response;
+  } catch (error) {
+    console.error("Erreur envoi email:", error);
+    throw error;
+  }
 }
 
 module.exports = { sendMail };
