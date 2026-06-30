@@ -24,16 +24,17 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  port: 465,            // 1. Basculer sur le port 465
+  secure: true,         // 2. secure doit être 'true' pour le port 465
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  connectionTimeout: 30000,
-  greetingTimeout: 30000,
-  socketTimeout: 30000,
-  family: 4,   
+  // Les options réseaux de sécurité
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 20000,
+  family: 4,            // 3. ESSENTIEL sur Render : force la résolution IPv4
 });
 
 function sendMail(to, subject, text) {
