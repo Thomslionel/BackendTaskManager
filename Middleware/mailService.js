@@ -27,7 +27,7 @@ const resend = new Resend(process.env.API_KEY);
 async function sendMail(to, subject, message) {
   try {
     const response = await resend.emails.send({
-      from: "onboarding@resend.dev", // email de test
+      from: "thomsmanly@gmail.com", // email de test
       to: [to],
       subject: subject,
       text: message,
